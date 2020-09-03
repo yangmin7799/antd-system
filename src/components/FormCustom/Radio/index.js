@@ -14,11 +14,6 @@ class MyRadio extends Component {
     return options && Array.isArray(options) && options.length > 0;
   };
 
-  onChange(e){
-    console.log(e)
-    console.log(this)
-  }
-
   render() {
     const { options,defaultValue,getRadioValue } = this.props;
 

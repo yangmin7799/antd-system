@@ -2,6 +2,7 @@ import React,{ useState } from 'react'
 import { Input,Button } from 'antd';
 import MySelect  from "../../components/FormCustom/Select"
 import MyRadio  from "../../components/FormCustom/Radio"
+// import SelectGroup  from "../../components/FormCustom/SelectGroup"
 
 const Home = () => {
 	const [num,setNum] =  useState(0)
@@ -11,6 +12,7 @@ const Home = () => {
 	const options = [{label: "js",value: 1},{label:"java",value: 2}]
 	const other = {
 		defaultValue: selectVal,
+		mode: "multiple",
 		style: {"width": 200}
 	}
 
@@ -38,6 +40,8 @@ const Home = () => {
 				getRadioValue={(val)=>getRadioValue(val)}/>
 			<Input placeholder="Basic usage" value={radioVal} />
 
+
+			{/* <SelectGroup options={options} /> */}
 
 		</div>
 	)
