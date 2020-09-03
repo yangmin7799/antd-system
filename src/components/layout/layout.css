@@ -1,3 +1,10 @@
+.a-center{
+  /* display: flex;
+  justify-content: center; */
+}
+.header-logo{
+  padding: 8px 24px;
+}
 .ant-layout-sider-children{
   position: relative;
 }
