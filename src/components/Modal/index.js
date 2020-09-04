@@ -9,7 +9,7 @@ class MyModal extends Component {
   }
   
   render() {
-    const { visible,otherProps,handleCancel } = this.props;
+    const { visible,otherProps,handleCancel,slot } = this.props;
 
     return  (
       <Modal
@@ -22,6 +22,8 @@ class MyModal extends Component {
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
+        {slot ? slot : 'hhhh'}
+
       </Modal>
     ) ;
   }
