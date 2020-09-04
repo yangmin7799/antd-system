@@ -1,6 +1,9 @@
-import React from 'react'
-import {Table, Tag} from "antd"
-const { Column, ColumnGroup } = Table;
+import React,{useState} from 'react'
+import MyTable from "../../components/Table"
+import MyButton from "../../components/Buttom"
+import MyModal from "../../components/Modal"
+import { Tag } from "antd"
+import { useVideo } from 'react-use'
 
 const OtherData = () => {
 	const data = [
@@ -22,30 +25,84 @@ const OtherData = () => {
 		},
 	]
 
-	return (
-		<Table dataSource={data} bordered>
-			<ColumnGroup title="Name">
-				<Column title="First Name" dataIndex="firstName" key="firstName" />
-				<Column title="Last Name" dataIndex="lastName" key="lastName" />
-			</ColumnGroup>
-			<Column title="Age" dataIndex="age" key="age" />
-			<Column title="Address" dataIndex="address" key="address" />
-			<Column
-				title="Tags"
-				dataIndex="tags"
-				key="tags"
-				render={tags => (
-					<>
-						{tags.map(tag => (
-							<Tag color="blue" key={tag}>
-								{tag}
-							</Tag>
-						))}
-					</>
-				)}
-			/>
+	const [visible,setVisible] = useState(false)
+	const [object,setObject] = useState({})
+
+	const onClick = (e,val) => {
+		setVisible(true)
+		setObject(val)
+	}
+
+	const columns = [
+		{
+			prop: "key",
+			name: "key"
+		},
+		{
+			name: "Name",
+			children: [
+				{
+					prop: "firstName",
+					name: "firstName"
+				},
+				{
+					prop: "lastName",
+					name: "lastName"
+				}
+			]
+		},
 		
-		</Table>
+		{
+			prop: "age",
+			name: "age"
+		},
+		{
+			prop: "address",
+			name: "address"
+		},
+		{
+			prop: "tags",
+			name: "tags",
+			formatterRander: (curr,row,index)=> {
+				return (
+					curr.map(i => (
+						<Tag key={i} color="blue" onClick={(e) => onClick(e,row)}>{i}</Tag>
+					))
+				)
+			}
+		}
+	]
+
+	const otherProps = {
+		bordered: true,
+	}
+
+	return (
+		<div>
+			<MyTable
+			data={data}
+			columns={columns} 
+			otherProps={otherProps}
+		 />
+		 
+		 <MyModal 
+				visible={visible} 
+				slot={
+					<div>
+						{Object.keys(object).map(key => (
+							<dl key={key}>
+								<dt key={key+'-key'}>{key}:</dt>
+								<dd key={key+'-text'}>{object[key]}</dd>
+							</dl>
+						))}
+					</div>
+				}
+				handleCancel={() =>setVisible(false)} 
+				handleOk={(val)=>setVisible(false)} />
+
+		</div>
+		
+		 
 	)
 }
 

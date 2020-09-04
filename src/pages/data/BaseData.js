@@ -1,6 +1,6 @@
 import React from 'react'
-import {Table, Tag} from "antd"
-const { Column, ColumnGroup } = Table;
+import MyTable from "../../components/Table"
+import { Tag } from "antd"
 
 const BaseData = () => {
 	const data = [
@@ -28,41 +28,60 @@ const BaseData = () => {
 			address: 'Sidney No. 1 Lake Park',
 			tags: ['cool', 'teacher'],
 		},
+	];
+
+	const columns = [
+		{
+			prop: "key",
+			name: "key"
+		},
+		{
+			name: "Name",
+			children: [
+				{
+					prop: "firstName",
+					name: "firstName"
+				},
+				{
+					prop: "lastName",
+					name: "lastName"
+				}
+			]
+		},
+		
+		{
+			prop: "age",
+			name: "age"
+		},
+		{
+			prop: "address",
+			name: "address"
+		},
+		{
+			prop: "tags",
+			name: "tags",
+			formatterRander: (curr,row,index)=> {
+				return (
+					curr.map(i => (
+						<Tag key={i} >{i}</Tag>
+					))
+				)
+			}
+		}
 	]
 
+	const otherProps = {
+		bordered: true,
+		align: "left",
+		pagination: false
+	}
+
 	return (
-		<Table dataSource={data} bordered>
-			<ColumnGroup title="Name">
-				<Column title="First Name" dataIndex="firstName" key="firstName" />
-				<Column title="Last Name" dataIndex="lastName" key="lastName" />
-			</ColumnGroup>
-			<Column title="Age" dataIndex="age" key="age" />
-			<Column title="Address" dataIndex="address" key="address" />
-			<Column
-				title="Tags"
-				dataIndex="tags"
-				key="tags"
-				render={tags => (
-					<>
-						{tags.map(tag => (
-							<Tag color="blue" key={tag}>
-								{tag}
-							</Tag>
-						))}
-					</>
-				)}
-			/>
-			{/* <Column
-				title="Action"
-				key="action"
-				render={(text, record) => (
-					<Space size="middle">
-						<a>Invite {record.lastName}</a>
-						<a>Delete</a>
-					</Space>
-				)}
-			/> */}
-		</Table>
+		<MyTable
+			data={data}
+			columns={columns} 
+			otherProps={otherProps}
+		 />
 	)
 }
 
