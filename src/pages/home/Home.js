@@ -6,6 +6,8 @@ import MyButton  from "../../components/Buttom"
 import MyModal from "../../components/Modal"
 import MySwitch  from "../../components/Switch"
 
+import MyForm  from "../../components/FormCustom"
+
 const Home = () => {
 	const [num,setNum] =  useState(0)
 	const [selectVal,setSelectVal] = useState(1);
@@ -13,11 +15,12 @@ const Home = () => {
 	const [active,setActive] = useState("2")
 	const [visible,setVisible] = useState(false)
 
+	let [selectVals,setSelectVals] = useState([1])
+
 	const options = [{label: "js",value: 1},{label:"Java",value: 2}]
 	const other = {
-		defaultValue: selectVal,
+		defaultValue: selectVals,
 		mode: "multiple",
-		style: {"width": 200}
 	}
 	const btnProps = {
 		onClick: () =>{
@@ -42,6 +45,44 @@ const Home = () => {
 		setVisible(_visible)
 	}
 
+	const fields = [
+		{
+			field: 'name',
+			label: '姓名'
+		},
+		// {
+		// 	field: 'age',
+		// 	label: '年龄',
+		// 	type: 'InputNumber'
+		// },
+		// {
+		// 	field: 'birthday',
+		// 	label: '生日',
+		// 	type: 'DatePicker'
+		// },
+		{
+			field: 'select',
+			label: 'Select',
+			type: 'Select',
+			// initialValue: '22',
+			options: [
+				{
+					label: '11',
+					value: '11'
+				},
+				{
+					label: '22',
+					value: '22'
+				}
+			]
+		}
+	]
+
+	const onClick = () => {
+		console.log("hhh",this)
+	}
+
+
 	return (
 		<div className="page">
 			<MySwitch 
@@ -57,11 +98,7 @@ const Home = () => {
 				<Button type="primary" onClick={() => setNum(num+1)}>+1</Button>
 			</div>
 
-			<MySelect 
-				options={options} 
-				otherProps={other} 
-				getSelectValue={(val) => setSelectVal(val)} />
-			<Input placeholder="Basic usage" value={selectVal} />
+		
 
 			<MyRadio 
 				options={options} 
@@ -83,6 +120,17 @@ const Home = () => {
 				handleCancel={() =>setVisible(false)} 
 				handleOk={(val)=>getVisible(val)} />
 
+			<MySelect 
+				options={options} 
+				{...other}
+				getSelectValue={(val) => setSelectVals(val)} />
+			<Input placeholder="Basic usage" value={selectVals} />
+
+			<MyForm 
+				fields={fields}
+				onSubmit={() => {}}
+			/>
+			{/* <Button onClick={onClick}>提交</Button> */}
 		</div>
 	)
 }

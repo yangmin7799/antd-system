@@ -1,8 +1,12 @@
 import React from 'react'
-import { Form, Input, InputNumber, Button } from 'antd';
+import { Form, Input, InputNumber, Button, Select } from 'antd';
+
+const {Option} = Select
 
 const layout = {
-  labelCol: { span: 8 },
+  labelAlign: "rigth",
+  // layout: "inline",
+  labelCol: { span: 3 },
   wrapperCol: { span: 16 },
 };
 
@@ -17,15 +21,16 @@ const validateMessages = {
   },
 };
 
+const onGenderChange = ()=>{
+
+}
+
 
 const PatList = () => {
-	const onFinish = values => {
-    console.log(values);
-	};
 	
 	return (
-		<Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-      <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
+		<Form {...layout} name="nest-messages">
+      <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true,message: 'Please input your username!' }]} required>
         <Input />
       </Form.Item>
       <Form.Item name={['user', 'email']} label="Email" rules={[{ type: 'email' }]}>
@@ -35,7 +40,15 @@ const PatList = () => {
         <InputNumber />
       </Form.Item>
       <Form.Item name={['user', 'website']} label="Website">
-        <Input />
+        <Select
+            placeholder="Select a option and change input text above"
+            onChange={onGenderChange}
+            allowClear
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
       </Form.Item>
       <Form.Item name={['user', 'introduction']} label="Introduction">
         <Input.TextArea />
